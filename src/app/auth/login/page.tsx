@@ -2,7 +2,7 @@
 "use client"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, ArrowRight, Users, Globe, } from "lucide-react";
+import { Eye, EyeOff, ArrowRight} from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -120,7 +120,7 @@ const Login = () => {
 
                         <div className="mt-6 text-center animate-fade-in" style={{ animationDelay: '0.8s' }}>
                            <p className="text-slate-600 dark:text-slate-400">
-                           I don't have an account {" "}
+                           I don&apos;t have an account {" "}
                            <Link
                               href="/auth/register"
                               className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors duration-200"

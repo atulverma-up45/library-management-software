@@ -19,7 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useRouter } from "next/navigation";
-import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
+
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
