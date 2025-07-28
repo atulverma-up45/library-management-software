@@ -5,7 +5,7 @@ import { Eye, EyeOff, ArrowRight, Users, Globe, } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // import { ThemeProvider } from "@/components/ui/ThemeProvider";
 // import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -19,6 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useRouter } from "next/navigation";
+import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -77,9 +78,7 @@ const SignUp = () => {
   return (
     
       <div className="min-h-screen transition-colors duration-500 flex items-center justify-center p-4">
-        <div className="absolute top-4 right-4">
-          {/* <ThemeToggle /> */}
-        </div>
+        
         
         <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-8 items-center">
           {/* Left side - Sign Up Form */}
@@ -103,7 +102,7 @@ const SignUp = () => {
                       placeholder="John Doe"
                       value={formData.name}
                       onChange={(e) => handleInputChange("name", e.target.value)}
-                      className=""
+                      className="bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 focus:border-blue-500 dark:focus:border-blue-400 transition-colors duration-200"
                       required
                     />
                   </div>
@@ -111,16 +110,18 @@ const SignUp = () => {
                   <div className="space-y-2 animate-fade-in w-full" style={{ animationDelay: '0.2s' }}>
                     <Label htmlFor="name" className="text-slate-700 dark:text-slate-300">Role</Label>
                     <DropdownMenu>
-                        <DropdownMenuTrigger className={`w-full h-9  border border-slate-300 rounded-md  ${selectedRole == "Select your Role" ?"text-slate-500":"text-black"}`}>{selectedRole}</DropdownMenuTrigger>
-                          <DropdownMenuContent className="w-full">
-                            {["Admin", "Staff", "Student", "Subscription"].map((role) => (
+                        <DropdownMenuTrigger className={`w-full h-9  border border-slate-300 rounded-md font-semibold ${selectedRole == "Select your Role" ?"text-slate-500":"text-black"}`}>{selectedRole}</DropdownMenuTrigger>
+                          <DropdownMenuContent className="w-100 text-center ">
+                            {["Admin", "Staff", "Student", "Super User"].map((role) => (
                                 <DropdownMenuItem
                                 key={role}
                                 onClick={() => setSelectedRole(role)}
-                                className="w-full"
+                                className="w-full text-center font-semibold"
                                 >
                                 {role}
+                                
                                 </DropdownMenuItem>
+                                
                               ))}
                             </DropdownMenuContent>
                     </DropdownMenu>
@@ -183,14 +184,14 @@ const SignUp = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-2 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+                  {/* <div className="flex items-center space-x-2 animate-fade-in" style={{ animationDelay: '0.6s' }}>
                     <Checkbox
                       id="terms"
                       checked={formData.acceptTerms}
                       onCheckedChange={(checked) => handleInputChange("acceptTerms", checked as boolean)}
                       className="border-slate-300 dark:border-slate-600"
                     />
-                    <Label htmlFor="terms" className="text-sm text-slate-600 dark:text-slate-400">
+                    <Label htmlFor="terms" className="text-sm text-slate-600 dark:text-slate-400 flex ">
                       I agree to the{" "}
                       <Link href="/terms" className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-200">
                         Terms of Service
@@ -200,7 +201,7 @@ const SignUp = () => {
                         Privacy Policy
                       </Link>
                     </Label>
-                  </div>
+                  </div> */}
 
                   <Button
                     type="submit"
@@ -217,7 +218,7 @@ const SignUp = () => {
                   <p className="text-slate-600 dark:text-slate-400">
                     Already have an account?{" "}
                     <Link
-                      href="/signin"
+                      href="/auth/login"
                       className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors duration-200"
                     >
                       Sign in
@@ -257,17 +258,6 @@ const SignUp = () => {
                   </div>
                 ))}
               </div>
-
-              {/* <div className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border border-blue-200 dark:border-blue-800 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-                <div className="flex items-center space-x-3 mb-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Live Status</span>
-                </div>
-                <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">99.99% Uptime</p>
-                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                  Last 30 days - All systems operational
-                </p>
-              </div> */}
             </div>
           </div>
         </div>
