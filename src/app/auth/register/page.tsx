@@ -16,8 +16,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
+
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useRouter } from "next/navigation";
@@ -54,7 +53,7 @@ const SignUp = () => {
     const response= {
         status : 200
     }
-    
+    // send the backend request and get back response
 
    
     if(response.status == 200){
