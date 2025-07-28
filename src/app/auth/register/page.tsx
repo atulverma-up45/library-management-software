@@ -1,16 +1,16 @@
 "use client"
 import { useState } from "react";
 import  Link from "next/link";
-import { Eye, EyeOff, ArrowRight, Shield, Users, Globe, Zap } from "lucide-react";
+import { Eye, EyeOff, ArrowRight, Users, Globe, } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // import { ThemeProvider } from "@/components/ui/ThemeProvider";
 // import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { toast } from "sonner";
-import axios from "axios";
+
 // import BACKEND_URL from "@/config/confit";
 import {
   DropdownMenu,
@@ -37,8 +37,8 @@ const SignUp = () => {
 
   const handleSubmit = async(e:React.FormEvent) => {
     e.preventDefault()
-    const name = formData.name
-    const email = formData.email
+    // const name = formData.name
+    // const email = formData.email
     const password = formData.password
     const confirmPassword = formData.confirmPassword
 
