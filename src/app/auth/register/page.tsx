@@ -111,7 +111,7 @@ const SignUp = () => {
                     <Label htmlFor="name" className="text-slate-700 dark:text-slate-300">Role</Label>
                     <DropdownMenu>
                         <DropdownMenuTrigger className={`w-full h-9  border border-slate-300 rounded-md font-semibold ${selectedRole == "Select your Role" ?"text-slate-500":"text-black"}`}>{selectedRole}</DropdownMenuTrigger>
-                          <DropdownMenuContent className="w-100 text-center ">
+                          <DropdownMenuContent className="w-100 text-center max-sm:w-60 ">
                             {["Admin", "Staff", "Student", "Super User"].map((role) => (
                                 <DropdownMenuItem
                                 key={role}
