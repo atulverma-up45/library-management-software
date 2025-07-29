@@ -51,7 +51,7 @@ const SignUp = () => {
   const [selectedRole, setSelectedRole] = useState("Select your Role")
   const [role,setRole] = useState<boolean>(true)
   const [email,setEamil] = useState<boolean>(true)
-  const [shouldShake, setShouldShake] = useState(false);
+  const [, setShouldShake] = useState(false);
 
   const router = useRouter()
   const [fullName,setFullName]= useState<boolean>(true)
@@ -171,22 +171,22 @@ const SignUp = () => {
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="space-y-2 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                    <Label htmlFor="name" className="text-slate-700 dark:text-slate-300">Full Name</Label>
+                  <div className=" animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                    <Label htmlFor="name" className="text-slate-700 py-1 dark:text-slate-300">Full Name</Label>
                     <Input
                       id="full Name"
                       type="text"
                       placeholder="John Doe"
                       value={formData.fullName}
                       onChange={(e) => {handleInputChange("fullName", e.target.value, setFullName)}}
-                      className={`bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 focus:border-blue-500 dark:focus:border-blue-400 transition-colors duration-200 ${(!fullName || shouldShake)&& "border-red-400 border-2 shake" } `}
+                      className={`bg-white space-y-2 dark:bg-slate-900 border-slate-300 dark:border-slate-600 focus:border-blue-500 dark:focus:border-blue-400 transition-colors duration-200 ${(!fullName)&& "border-red-400 border-2 shake" } `}
                       // required
                     />
-                    <span className="text-red-600 text-sm m-0 p-0">{!fullName && "please enter full name"}</span>
+                    <p className="text-red-600 text-sm m-0 p-0">{!fullName && "please enter full name"}</p>
                   </div>
 
-                  <div className="space-y-2 animate-fade-in w-full" style={{ animationDelay: '0.2s' }}>
-                    <Label htmlFor="name" className="text-slate-700 dark:text-slate-300">Role</Label>
+                  <div className="animate-fade-in w-full" style={{ animationDelay: '0.2s' }}>
+                    <Label htmlFor="name" className="text-slate-700 dark:text-slate-300 py-1">Role</Label>
                     <DropdownMenu>
                         <DropdownMenuTrigger className={`w-full h-9  border  rounded-md font-semibold ${selectedRole == "Select your Role" ?"text-slate-500":"text-black"} ${!role ?"border-red-400 border-2 shake" :"border-slate-300" } `}>{selectedRole}</DropdownMenuTrigger>
                           <DropdownMenuContent className={`w-100 text-center max-sm:w-60`}>
@@ -208,10 +208,10 @@ const SignUp = () => {
                               ))}
                             </DropdownMenuContent>
                     </DropdownMenu>
-                    <span className="text-red-600 text-sm m-0 p-0 space-y-0">{!role && "please select your role"}</span>
+                    <p className="text-red-600 text-sm m-0 p-0 space-y-0">{!role && "please select your role"}</p>
                   </div>
 
-                  <div className="space-y-2 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+                  <div className=" animate-fade-in" style={{ animationDelay: '0.3s' }}>
                     <Label htmlFor="email" className="text-slate-700 dark:text-slate-300">Email</Label>
                     <Input
                       id="email"
