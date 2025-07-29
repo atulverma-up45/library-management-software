@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // import { ThemeProvider } from "@/components/ui/ThemeProvider";
 // import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { toast } from "sonner";
-
+import { z } from "zod"
 // import BACKEND_URL from "@/config/confit";
 import {
   DropdownMenu,
@@ -20,24 +20,99 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useRouter } from "next/navigation";
 
+// const fullNameSchema = z
+//   .string()
+//   .min(3, { message: "Full name must be at least 3 characters long." })
+//   .max(100, { message: "Full name must be less than 100 characters." })
+//   .regex(/^[a-zA-Z]+(?: [a-zA-Z]+)+$/, {
+//     message: "Please enter at least first and last name.",
+//   })
+
+const registerSchema = z.object({
+  fullName : z.string()
+            .min(3, { message: "Full name must be at least 3 characters long." })
+            .max(100, { message: "Full name must be less than 100 characters." })
+            .regex(/^[a-zA-Z]+(?: [a-zA-Z]+)+$/, {
+              message: "Please enter at least first and last name.",
+            }),
+    role : z.enum(["Admin", "Staff", "Student", "Super User"]),
+    password : z.string().min(6, { message : "Your passoword is too short" }).max(40,{message:"Your password is too long"}),
+    confirmPassword : z.string().min(6, { message : "Your passoword is too short" }).max(40,{message:"Your password is too long"}),
+    email : z.email(),
+
+  })
+  
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [password,setPassword] = useState<boolean>(true)
+  const [confirmPassword,setConfimPassword] = useState<boolean>(true)
   const [selectedRole, setSelectedRole] = useState("Select your Role")
+  const [role,setRole] = useState<boolean>(true)
+  const [email,setEamil] = useState<boolean>(true)
+  const [shouldShake, setShouldShake] = useState(false);
+
   const router = useRouter()
+  const [fullName,setFullName]= useState<boolean>(true)
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    acceptTerms: false
+    role:""
+    // acceptTerms: false
   });
   
 
   const handleSubmit = async(e:React.FormEvent) => {
     e.preventDefault()
     // const name = formData.name
+    const safeparse = registerSchema.safeParse(formData)
+    console.log(safeparse.error?.message)
+    
+    if(safeparse.error){
+      const error = safeparse.error.flatten().fieldErrors
+      
+      console.log(error)
+      if(error.email){
+        setEamil(false)
+        setShouldShake(true)
+      }else{
+        setEamil(true)
+        setShouldShake(false)
+      }
+      if(error.fullName){
+        setFullName(false)
+        setShouldShake(true)
+      }else{
+        setFullName(true)
+        setShouldShake(false)
+      }
+      if(error.password){
+        setPassword(false)
+        setShouldShake(true)
+      }else{
+        setPassword(true)
+        setShouldShake(false)
+      }
+      if(error.confirmPassword){
+        setConfimPassword(false)
+        setShouldShake(true)
+      }else{
+        setConfimPassword(true)
+        setShouldShake(false)
+      }
+      if(error.role){
+        setRole(false)
+        setShouldShake(true)
+      }else{
+        setRole(true)
+        setShouldShake(false)
+      }
+      // setFullName(false)
+      return 
+    }
     // const email = formData.email
     const password = formData.password
     const confirmPassword = formData.confirmPassword
@@ -65,7 +140,9 @@ const SignUp = () => {
     
   };
 
-  const handleInputChange = (field: string, value: string | boolean) => {
+  const handleInputChange = (field: string, value: string | boolean, setValue :React.Dispatch<React.SetStateAction<boolean>>) => {
+    setValue(true)
+    // console.log(field)
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -77,7 +154,7 @@ const SignUp = () => {
 
   return (
     
-      <div className="min-h-screen transition-colors duration-500 flex items-center justify-center p-4">
+      <div className="min-h-screen transition-colors duration-500 flex items-center justify-center p-4" suppressContentEditableWarning>
         
         
         <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-8 items-center">
@@ -97,26 +174,32 @@ const SignUp = () => {
                   <div className="space-y-2 animate-fade-in" style={{ animationDelay: '0.2s' }}>
                     <Label htmlFor="name" className="text-slate-700 dark:text-slate-300">Full Name</Label>
                     <Input
-                      id="name"
+                      id="full Name"
                       type="text"
                       placeholder="John Doe"
-                      value={formData.name}
-                      onChange={(e) => handleInputChange("name", e.target.value)}
-                      className="bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 focus:border-blue-500 dark:focus:border-blue-400 transition-colors duration-200"
-                      required
+                      value={formData.fullName}
+                      onChange={(e) => {handleInputChange("fullName", e.target.value, setFullName)}}
+                      className={`bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 focus:border-blue-500 dark:focus:border-blue-400 transition-colors duration-200 ${(!fullName || shouldShake)&& "border-red-400 border-2 shake" } `}
+                      // required
                     />
+                    <span className="text-red-600 text-sm m-0 p-0">{!fullName && "please enter full name"}</span>
                   </div>
 
                   <div className="space-y-2 animate-fade-in w-full" style={{ animationDelay: '0.2s' }}>
                     <Label htmlFor="name" className="text-slate-700 dark:text-slate-300">Role</Label>
                     <DropdownMenu>
-                        <DropdownMenuTrigger className={`w-full h-9  border border-slate-300 rounded-md font-semibold ${selectedRole == "Select your Role" ?"text-slate-500":"text-black"}`}>{selectedRole}</DropdownMenuTrigger>
-                          <DropdownMenuContent className="w-100 text-center max-sm:w-60 ">
+                        <DropdownMenuTrigger className={`w-full h-9  border  rounded-md font-semibold ${selectedRole == "Select your Role" ?"text-slate-500":"text-black"} ${!role ?"border-red-400 border-2 shake" :"border-slate-300" } `}>{selectedRole}</DropdownMenuTrigger>
+                          <DropdownMenuContent className={`w-100 text-center max-sm:w-60`}>
                             {["Admin", "Staff", "Student", "Super User"].map((role) => (
                                 <DropdownMenuItem
                                 key={role}
-                                onClick={() => setSelectedRole(role)}
-                                className="w-full text-center font-semibold"
+                                onClick={() => {
+                                  setSelectedRole(role)
+                                  setRole(true)
+                                  // console.log(role)
+                                  formData.role=role
+                                }}
+                                className={`w-full text-center font-semibold ${selectedRole}`}
                                 >
                                 {role}
                                 
@@ -125,6 +208,7 @@ const SignUp = () => {
                               ))}
                             </DropdownMenuContent>
                     </DropdownMenu>
+                    <span className="text-red-600 text-sm m-0 p-0 space-y-0">{!role && "please select your role"}</span>
                   </div>
 
                   <div className="space-y-2 animate-fade-in" style={{ animationDelay: '0.3s' }}>
@@ -134,10 +218,11 @@ const SignUp = () => {
                       type="email"
                       placeholder="you@example.com"
                       value={formData.email}
-                      onChange={(e) => handleInputChange("email", e.target.value)}
-                      className="bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 focus:border-blue-500 dark:focus:border-blue-400 transition-colors duration-200"
-                      required
+                      onChange={(e) => handleInputChange("email", e.target.value,setEamil)}
+                      className={`bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 focus:border-blue-500 dark:focus:border-blue-400 transition-colors duration-200 ${!email&& "border-red-400 border-2 shake" }`}
+                      // required
                     />
+                    <span className="text-red-600 text-sm m-0 p-0 space-y-0">{!email && "please enter your email"}</span>
                   </div>
                   
                   <div className="space-y-2 animate-fade-in" style={{ animationDelay: '0.4s' }}>
@@ -148,18 +233,19 @@ const SignUp = () => {
                         type={showPassword ? "text" : "password"}
                         placeholder="Create a strong password"
                         value={formData.password}
-                        onChange={(e) => handleInputChange("password", e.target.value)}
-                        className="bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 focus:border-blue-500 dark:focus:border-blue-400 transition-colors duration-200 pr-10"
-                        required
+                        onChange={(e) => handleInputChange("password", e.target.value ,setPassword)}
+                        className={`bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 focus:border-blue-500 dark:focus:border-blue-400 transition-colors duration-200 pr-10 ${!password && "border-red-400 border-2 shake" }`}
+                        // required
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors duration-200"
+                        className={`absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors duration-200 `}
                       >
                         {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
+                    <span className="text-red-600 text-sm m-0 p-0 space-y-0">{!password && "please enter your password"}</span>
                   </div>
 
                   <div className="space-y-2 animate-fade-in" style={{ animationDelay: '0.5s' }}>
@@ -170,9 +256,9 @@ const SignUp = () => {
                         type={showConfirmPassword ? "text" : "password"}
                         placeholder="Confirm your password"
                         value={formData.confirmPassword}
-                        onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
-                        className="bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 focus:border-blue-500 dark:focus:border-blue-400 transition-colors duration-200 pr-10"
-                        required
+                        onChange={(e) => handleInputChange("confirmPassword", e.target.value,setConfimPassword)}
+                        className={`bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 focus:border-blue-500 dark:focus:border-blue-400 transition-colors duration-200 pr-10 ${!confirmPassword && "border-red-400 border-2 shake"}`}
+                        // required
                       />
                       <button
                         type="button"
@@ -182,6 +268,7 @@ const SignUp = () => {
                         {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
+                    <span className="text-red-600 text-sm m-0 p-0 space-y-0">{!confirmPassword && "please enter your confirm password"}</span>
                   </div>
 
                   {/* <div className="flex items-center space-x-2 animate-fade-in" style={{ animationDelay: '0.6s' }}>
@@ -205,7 +292,7 @@ const SignUp = () => {
 
                   <Button
                     type="submit"
-                    disabled={!formData.acceptTerms}
+                    // disabled={!formData.acceptTerms}
                     className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-2.5 rounded-lg transition-all duration-200 hover:scale-105 animate-fade-in group disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ animationDelay: '0.7s' }}
                   >
