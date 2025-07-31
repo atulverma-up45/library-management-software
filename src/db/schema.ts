@@ -8,7 +8,7 @@ import {
 } from 'drizzle-orm/mysql-core';
 
 
-export const user = mysqlTable("users",{
+export const users = mysqlTable("users",{
   id : serial().primaryKey().autoincrement(),
   username : varchar({length:50}).notNull().unique(),
   // validate the email in backend using zod for email format
