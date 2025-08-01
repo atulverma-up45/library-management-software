@@ -1,7 +1,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../index";
-import { users } from "../../../db/schema";
+import { db } from "../../../../index";
+import { users } from "../../../../db/schema";
 
 
 export async function POST(req: NextRequest){
