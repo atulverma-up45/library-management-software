@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react";
 import  Link from "next/link";
-import { Eye, EyeOff, ArrowRight, Users, Globe, } from "lucide-react";
+import { Eye, EyeOff, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -136,8 +136,6 @@ const SignUp = () => {
         router.push('/signin')
     }
     
-    
-    
   };
 
   const handleInputChange = (field: string, value: string | boolean, setValue :React.Dispatch<React.SetStateAction<boolean>>) => {
@@ -146,25 +144,22 @@ const SignUp = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const features = [
-    { icon: Users, text: "1000+ registered library members" },
-    { icon: Globe, text: "Browse and borrow books anytime, anywhere" },
-    // { icon: Zap, text: "Get alerts in < 30 seconds" }
-  ];
+
 
   return (
     
-      <div className="min-h-screen transition-colors duration-500 flex items-center justify-center p-4" suppressContentEditableWarning>
+     <div className="max-w-full">
+       <div className="min-h-screen transition-colors duration-500 " suppressContentEditableWarning>
         
         
-        <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-8 items-center">
+        <div className="max-w-full h-screen   flex justify-center items-center">
           {/* Left side - Sign Up Form */}
-          <div className="">
+          <div className="w-full flex items-center justify-center ">
             <Card className="w-full max-w-md mx-auto  border-slate-200  shadow-xl hover:shadow-2xl transition-all duration-300 animate-scale-in">
               <CardHeader className="space-y-1 text-center">
                 
                 
-                <CardTitle className="text-4xl font-bold text-slate-900 dark:text-slate-100">
+                <CardTitle className="text-4xl font-bold text-slate-900 dark:text-slate-100 max-sm:text-3xl">
                   Create your account
                 </CardTitle>
                
@@ -189,8 +184,8 @@ const SignUp = () => {
                     <Label htmlFor="name" className="text-slate-700 dark:text-slate-300 py-1">Role</Label>
                     <DropdownMenu>
                         <DropdownMenuTrigger className={`w-full h-9  border  rounded-md font-semibold ${selectedRole == "Select your Role" ?"text-slate-500":"text-black"} ${!role ?"border-red-400 border-2 shake" :"border-slate-300" } `}>{selectedRole}</DropdownMenuTrigger>
-                          <DropdownMenuContent className={`w-100 text-center max-sm:w-60`}>
-                            {["Admin", "Staff", "Student", "Super User"].map((role) => (
+                          <DropdownMenuContent className={`w-full  max-w-full text-center max-sm:w-78`}>
+                            {["Super Admin", "Admin", "Staff", "Student"].map((role) => (
                                 <DropdownMenuItem
                                 key={role}
                                 onClick={() => {
@@ -211,8 +206,8 @@ const SignUp = () => {
                     <p className="text-red-600 text-sm m-0 p-0 space-y-0">{!role && "please select your role"}</p>
                   </div>
 
-                  <div className=" animate-fade-in" style={{ animationDelay: '0.3s' }}>
-                    <Label htmlFor="email" className="text-slate-700 dark:text-slate-300">Email</Label>
+                  <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
+                    <Label htmlFor="email" className="text-slate-700 dark:text-slate-300 mb-1">Email</Label>
                     <Input
                       id="email"
                       type="email"
@@ -270,30 +265,10 @@ const SignUp = () => {
                     </div>
                     <span className="text-red-600 text-sm m-0 p-0 space-y-0">{!confirmPassword && "please enter your confirm password"}</span>
                   </div>
-
-                  {/* <div className="flex items-center space-x-2 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-                    <Checkbox
-                      id="terms"
-                      checked={formData.acceptTerms}
-                      onCheckedChange={(checked) => handleInputChange("acceptTerms", checked as boolean)}
-                      className="border-slate-300 dark:border-slate-600"
-                    />
-                    <Label htmlFor="terms" className="text-sm text-slate-600 dark:text-slate-400 flex ">
-                      I agree to the{" "}
-                      <Link href="/terms" className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-200">
-                        Terms of Service
-                      </Link>{" "}
-                      and{" "}
-                      <Link href="/privacy" className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-200">
-                        Privacy Policy
-                      </Link>
-                    </Label>
-                  </div> */}
-
                   <Button
                     type="submit"
                     // disabled={!formData.acceptTerms}
-                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-2.5 rounded-lg transition-all duration-200 hover:scale-105 animate-fade-in group disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium  rounded-lg transition-all duration-200 hover:scale-105 animate-fade-in group disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ animationDelay: '0.7s' }}
                   >
                     Create library account
@@ -308,47 +283,16 @@ const SignUp = () => {
                       href="/auth/login"
                       className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors duration-200"
                     >
-                      Sign in
+                      Login
                     </Link>
                   </p>
                 </div>
               </CardContent>
             </Card>
           </div>
-
-          {/* Right side - Features */}
-          <div className="hidden lg:block animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <div className="space-y-8">
-              <div className="space-y-6">
-                <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-slate-100 leading-tight">
-                  Join thousands of 
-                  <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent block">
-                    satisfied readers
-                  </span>
-                </h1>
-                <p className="text-xl text-slate-600 dark:text-slate-300">
-                  Manage your books and borrow anytime from our digital library platform.
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                {features.map((feature, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center space-x-4 p-4 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-slate-700 animate-fade-in hover:scale-105 transition-all duration-300"
-                    style={{ animationDelay: `${0.3 + index * 0.1}s` }}
-                  >
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl flex items-center justify-center">
-                      <feature.icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                    </div>
-                    <span className="text-slate-700 dark:text-slate-300 font-medium">{feature.text}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
         </div>
       </div>
+     </div>
     
   );
 };
