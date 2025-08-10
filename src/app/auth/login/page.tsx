@@ -28,9 +28,10 @@ const Login = () => {
     // const name = formData.name
     // const email = formData.email
     const password = formData.password
-    const confirmPassword = formData.confirmPassword
+    const email = formData.email
+    
 
-    if(confirmPassword != password){
+    if(!password || !email ){
         toast.error("password should be same")
         return
     }
@@ -110,8 +111,8 @@ const Login = () => {
                               </div>
                               <Button
                               type="submit"
-                              disabled={!formData.acceptTerms}
-                              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-2.5 rounded-lg transition-all duration-200 hover:scale-105 animate-fade-in group disabled:opacity-50 disabled:cursor-not-allowed"
+                              disabled={formData.acceptTerms}
+                              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-2.5 rounded-lg transition-all duration-200 hover:scale-105 animate-fade-in group disabled:opacity-50"
                               style={{ animationDelay: '0.7s' }}
                               >
                               Log in
