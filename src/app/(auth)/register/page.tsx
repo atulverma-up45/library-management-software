@@ -280,7 +280,7 @@ const SignUp = () => {
                   <p className="text-slate-600 dark:text-slate-400">
                     Already have an account?{" "}
                     <Link
-                      href="/auth/login"
+                      href="/login"
                       className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors duration-200"
                     >
                       Login
