@@ -12,6 +12,7 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar"
 import Image from "next/image"
+import { AdminDashboard } from "./adminDashboard"
 
 // Menu items.
 const items = [
@@ -67,37 +68,41 @@ const items = [
 
 export default function Dashboard() {
   return (
-    <Sidebar>
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-3xl h-20 text-black">Super Admin
+    <div className="m-4">
+      <Sidebar>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel className="text-3xl h-20 text-black">Super Admin
+              
+            </SidebarGroupLabel>
             
-          </SidebarGroupLabel>
-          
-          <SidebarSeparator/>
-          <SidebarGroupContent>
-            <SidebarMenu>
-                <div className="flex flex-col gap-4 text-2xl ml-1.5 ">
+            <SidebarSeparator/>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                  <div className="flex flex-col gap-4 text-2xl ml-1.5 ">
 
-                
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                    
-                  <SidebarMenuButton asChild  className="hover:bg-blue-200 hover:text-black">
-                      <a href={item.url}  className="">
-                       {/* <Image src={item.svg} alt={item.url} className="w-6 h-6"/> */}
-                       <Image src={item.svg} alt={item.url} className="h-6 w-6" width={6} height={6}/>
-                       {/* <item.icon size={"lg"}/> */}
-                       <span className="text-lg font-semibold">{item.title}</span>
-                      </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-              </div>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-    </Sidebar>
+                  
+                {items.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                      
+                    <SidebarMenuButton asChild  className="hover:bg-blue-200 hover:text-black">
+                        <a href={item.url}  className="">
+                        {/* <Image src={item.svg} alt={item.url} className="w-6 h-6"/> */}
+                        <Image src={item.svg} alt={item.url} className="h-6 w-6" width={6} height={6}/>
+                        {/* <item.icon size={"lg"}/> */}
+                        <span className="text-lg font-semibold">{item.title}</span>
+                        </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+                </div>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+      <AdminDashboard/>
+    </div>
+    
   )
 }
