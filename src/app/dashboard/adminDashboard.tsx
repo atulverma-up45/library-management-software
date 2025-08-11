@@ -29,7 +29,7 @@ export const AdminDashboard = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Welcome back, Admin</h1>
+          <h1 className="text-3xl font-bold text-foreground">Welcome back, Super Admin</h1>
           <p className="text-muted-foreground">Here's what's happening at your library today.</p>
         </div>
         <Button variant="default" className="gap-2 cursor-pointer" onClick={submitHandle}>
@@ -38,9 +38,9 @@ export const AdminDashboard = () => {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
         {stats.map((stat, index) => (
-          <StatsCard key={index} {...stat} />
+          <StatsCard key={index} {...stat} className="hover:scale-102 transition-all cursor-pointer"/>
         ))}
       </div>
 
@@ -79,15 +79,15 @@ export const AdminDashboard = () => {
           <Card className="p-6 bg-gradient-subtle border-muted">
             <h3 className="text-lg font-semibold text-foreground mb-4">Quick Actions</h3>
             <div className="space-y-3">
-              <Button variant="outline" className="w-full justify-start cursor-pointer" onClick={submitHandle}>
+              <Button variant="outline" className="w-full justify-start cursor-pointer transition-all hover:scale-102" onClick={submitHandle}>
                 <Users className="w-4 h-4 mr-2" />
                 Add New Student
               </Button>
-              <Button variant="outline" className="w-full justify-start cursor-pointer" onClick={submitHandle}>
+              <Button variant="outline" className="w-full justify-start cursor-pointer transition-all hover:scale-102" onClick={submitHandle}>
                 <Book className="w-4 h-4 mr-2" />
                 Add New Book
               </Button>
-              <Button variant="outline" className="w-full justify-start cursor-pointer" onClick={submitHandle}>
+              <Button variant="outline" className="w-full justify-start cursor-pointer transition-all hover:scale-102" onClick={submitHandle}>
                 <Receipt className="w-4 h-4 mr-2" />
                 Generate Invoice
               </Button>
@@ -110,7 +110,7 @@ export const AdminDashboard = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Backup</span>
-                <Badge variant="secondary" className="bg-accent/10 text-green-500">Up to date</Badge>
+                <Badge variant="secondary" className="text-green-500">Up to date</Badge>
               </div>
             </div>
           </Card>
